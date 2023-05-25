@@ -53,11 +53,12 @@ public class Main {
                 }
                 CommandAndTag commandAndTag = new CommandAndTag(command, tag);
 
-                // 처리를 구조적으로 하는 것이 왜 중요한가
-                // 구조적으로 범용적으로 데이터 흐름을 제어하는 것이 왜 중요한가
-                // 구조적이란 것이 무엇인가
                 // task 처리는
                 // 처리 대상 생성 > Task 생성
+                    // 처리대상이란 무엇인가?
+                    // tag이다.
+                    // create라면 tag를 받아오고
+                    // execute라면 tag를 넣어준다.
                 // 처리 대상 실행 > Task 실행
                     // create
                     // execute[tag]
@@ -68,14 +69,12 @@ public class Main {
                     // 할일 목록에 tag가 없으면 실패 > 처리된 태그가 없다.
                 // 실패 처리 > Fail 처리
                 // 3가지로 구조화 할 수 있다고 생각한다.
-
                 // 어떻게 공통으로 처리 할 수 있지?
 
+                // 할일(Task)을 만들자
                 Task task = TaskService.createTask(commandAndTag);
-                Task result = task.execute();
-
-                TaskService.execute(commandAndTag);
-
+                // 할일을 처리하자
+                task.execute();
             }
 
         } catch (IOException e) {

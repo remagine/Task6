@@ -2,7 +2,6 @@ package tag;
 
 public class Tag implements Comparable<Tag> {
     private final int id;
-    private int failCnt;
 
     public Tag(int id) {
         this.id = id;
@@ -11,6 +10,10 @@ public class Tag implements Comparable<Tag> {
     public static Tag from(String input) {
         int id = Integer.parseInt(input);
         return new Tag(id);
+    }
+
+    public static ValidTag checkValidTag(Tag tag){
+        return new ValidTag(tag.id);
     }
 
 
@@ -26,14 +29,11 @@ public class Tag implements Comparable<Tag> {
 
         Tag tag = (Tag) o;
 
-        if (id != tag.id) return false;
-        return failCnt == tag.failCnt;
+        return id == tag.id;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + failCnt;
-        return result;
+        return id;
     }
 }

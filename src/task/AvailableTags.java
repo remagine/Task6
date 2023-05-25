@@ -17,4 +17,9 @@ public class AvailableTags {
             tags.add(new Tag(i));
         }
     }
+
+    public boolean isAvaiableTag(Tag tag){
+
+        return false;
+    }
 }
