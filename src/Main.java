@@ -1,9 +1,9 @@
-import task.Task;
-import task.TaskService;
 import command.Command;
 import commandandtag.CommandAndTag;
 import tag.EmptyTag;
 import tag.Tag;
+import task.Task;
+import task.TaskService;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -52,7 +52,6 @@ public class Main {
                     tag = Tag.from(inputArray[1]);
                 }
                 CommandAndTag commandAndTag = new CommandAndTag(command, tag);
-
                 // task 처리는
                 // 처리 대상 생성 > Task 생성
                     // 처리대상이란 무엇인가?
@@ -70,12 +69,19 @@ public class Main {
                 // 실패 처리 > Fail 처리
                 // 3가지로 구조화 할 수 있다고 생각한다.
                 // 어떻게 공통으로 처리 할 수 있지?
-
-                // 할일(Task)을 만들자
+                // 할일(Task) 생성
+                // create [emptyTag] ? minTag?
+                // execute [tag]
                 Task task = TaskService.createTask(commandAndTag);
-                // 할일을 처리하자
+                // 할일 처리
+                // create set minTag
+                // execute tag add to availableTags
                 task.execute();
+
+                // 실행 실패 시 카운트
+
             }
+            taskService.printTaskHistory();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

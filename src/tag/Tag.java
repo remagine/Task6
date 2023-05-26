@@ -12,8 +12,19 @@ public class Tag implements Comparable<Tag> {
         return new Tag(id);
     }
 
-    public static ValidTag checkValidTag(Tag tag){
-        return new ValidTag(tag.id);
+    public static Tag checkValidTag(Tag tag){
+        if(tag == null){
+            return EmptyTag.EMPTY_TAG;
+        }
+        if(tag.id >= 1 && tag.id <= 9){
+            return EmptyTag.EMPTY_TAG;
+        }
+
+        return tag;
+    }
+
+    public static boolean validateId(Tag tag) {
+        return tag.id >= 1 && tag.id <= 9;
     }
 
 

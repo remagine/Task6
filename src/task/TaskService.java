@@ -2,7 +2,9 @@ package task;
 
 import command.Command;
 import commandandtag.CommandAndTag;
+import tag.EmptyTag;
 import tag.Tag;
+import tag.ValidTag;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -24,17 +26,7 @@ public class TaskService {
 
     public static Task createTask(CommandAndTag commandAndTag) {
         Command command = commandAndTag.getCommand();
-        Tag tag;
-        switch (command){
-            case CREATE:
-                tag = availableTags.pollFirst();
-                break;
-            case EXECUTE:
-                tag = commandAndTag.getTag();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + command);
-        }
+        Tag tag = commandAndTag.getTag();
 
         return new Task(command, tag);
     }
@@ -55,5 +47,13 @@ public class TaskService {
 
         availableTags.add(tag);
         return true;
+    }
+
+    public void printTaskHistory() {
+        int createFailCnt = failHistory.getOrDefault(EmptyTag.EMPTY_TAG, 0);
+        failHistory.remove(EmptyTag.EMPTY_TAG);
+        System.out.println(createFailCnt);
+        System.out.println(availableTags);
+        System.out.println(failHistory);
     }
 }
