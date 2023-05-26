@@ -19,25 +19,25 @@ public class Task {
 
     public void execute() {
         ConcurrentSkipListSet<Tag> availableTags = taskService.getAvailableTags();
-        Tag result = EmptyTag.EMPTY_TAG;
+        Tag doneTag = EmptyTag.EMPTY_TAG;
         switch (command){
             case CREATE:
-                result = availableTags.pollFirst();
-                if(result == null){
-                    result = EmptyTag.EMPTY_TAG;
+                Tag minTag = availableTags.pollFirst();
+                if(minTag != null){
+                    doneTag = minTag;
                 }
                 break;
             case EXECUTE:
                 boolean isValidTag = Tag.validateId(tag);
                 if(isValidTag && availableTags.add(tag)){
-                    result = tag;
+                    doneTag = tag;
                 }
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + command);
         }
 
-        if(EmptyTag.EMPTY_TAG.equals(result)){
+        if(EmptyTag.EMPTY_TAG.equals(doneTag)){
             taskService.addFailCount(tag);
         }
     }
